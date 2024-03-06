@@ -18,22 +18,38 @@ def find_indexes(word, letter):
 
 
 
+#init
 for _ in word:
     user_word.append("_")
 
+def letter_not_found(no_of_tries):
+    print("No such letter")
+    no_of_tries -= 1
+    print("Number of tries left:", no_of_tries)
+    if (no_of_tries == 0):
+        print("Game Over")
+        sys.exit(0)
+
+
+def noHit(found_letter_indexes):
+    return len(found_letter_indexes) == 0
+
+
+# Main app flow
 while True:
     letter = input("Enter a letter: ")
     used_letters.append(letter)
-    indexes = find_indexes(word, letter)
-    if len(indexes) == 0:
+    found_letter_indexes = find_indexes(word, letter)
+
+    if noHit(found_letter_indexes):
         print("No such letter")
         no_of_tries -= 1
-        print("No of tries left:", no_of_tries)
-        if(no_of_tries == 0):
+        print("Number of tries left:", no_of_tries)
+        if (no_of_tries == 0):
             print("Game Over")
             sys.exit(0)
     else:
-        for index in indexes:
+        for index in found_letter_indexes:
             user_word[index] = letter
         if("".join(user_word) == word):
             print("That's correct!: ", word)
